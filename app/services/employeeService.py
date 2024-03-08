@@ -4,7 +4,7 @@ from app.database import get_db
 from app.models.EmployeeModel import Employee
 
 class EmployeeService:
-    def __init__():
+    def __init__(self):
         pass
 
     def list_all_employees(self):
