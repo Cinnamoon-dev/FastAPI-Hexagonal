@@ -17,7 +17,10 @@ class EmployeeService:
         db = get_db()
         data = db.query(Employee).get(id)
 
-        return {"data": data}
+        if not data:
+            return Response(json.dumps({"error": True, "message": "Employee not found"}), 404) 
+
+        return data
     
     def create_one_employee(self, request):
         db = get_db()
