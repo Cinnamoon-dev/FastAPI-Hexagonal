@@ -1,6 +1,5 @@
 from fastapi import APIRouter
 from app.adapters.vehicleAdapter import VehicleAdapter
-from app.services.vehicleService import VehicleService
 from app.swagger_models.vehicleModels import VehicleRequest
 
 router = APIRouter(prefix="/vehicle")
