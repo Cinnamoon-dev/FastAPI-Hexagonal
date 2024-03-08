@@ -11,6 +11,10 @@ router = APIRouter(prefix="/employee")
 def get_all_employee():
     return EmployeeService().list_all_employees()
 
+@router.get("/view/{id:int}")
+def get_one_employee(id: int):
+    return EmployeeService().view_one_employee(id)
+
 @router.post("/add")
 def create_one_employee(employee: EmployeeRequest):
     data = employee.model_dump()
