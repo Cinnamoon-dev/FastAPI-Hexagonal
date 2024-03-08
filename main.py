@@ -1,15 +1,13 @@
 import uvicorn
-from fastapi import FastAPI, APIRouter
+from app.database import Base, engine
+from app.controllers import employeeRouter, vehicleRouter
+from fastapi import FastAPI
 
 app = FastAPI()
-router = APIRouter(prefix="")
 
-@router.get("/test")
-async def test():
-    return {"test": "test"}
-
-app.include_router(router)
-
+app.include_router(employeeRouter.router)
+app.include_router(vehicleRouter.router)
 
 if __name__ == "__main__":
+    Base.metadata.create_all(bind=engine)
     uvicorn.run('main:app', reload=True)
