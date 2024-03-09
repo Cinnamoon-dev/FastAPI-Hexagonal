@@ -20,7 +20,7 @@ class VehicleService:
         if not data:
             return Response(json.dumps({"error": True, "message": "Vehicle not found"}), 404) 
 
-        return data 
+        return data.to_dict()
     
     def create_one_vehicle(self, request):
         db = get_db()
@@ -35,6 +35,23 @@ class VehicleService:
             db.flush()
             db.commit()
             return Response(json.dumps({"error": False, "message": "Vehicle created successfully"}), 200)
+        except:
+            db.rollback()
+            return Response(json.dumps({"error": True, "message": "Database error"}), 500)
+    
+    def delete_one_vehicle(self, id):
+        db = get_db()
+        vehicle = db.query(Vehicle).get(id)
+
+        if not vehicle:
+            return Response(json.dumps({"error": True, "message": "Vehicle not found"}), 404)
+        
+        try:
+            db.delete(vehicle)
+            db.flush()
+            db.commit()
+            return Response(json.dumps({"error": False, "message": "Vehicle deleted successfully"}))
+            
         except:
             db.rollback()
             return Response(json.dumps({"error": True, "message": "Database error"}), 500)

@@ -14,5 +14,8 @@ def get_one_vehicle(id: int):
 
 @router.post("/add")
 def create_one_vehicle(vehicle: VehicleRequest):
-    data = vehicle.model_dump()
-    return VehicleAdapter().create_one_vehicle(data)
+    return VehicleAdapter().create_one_vehicle(vehicle)
+
+@router.delete("/delete/{id:int}")
+def delete_one_vehicle(id: int):
+    return VehicleAdapter().delete_one_vehicle(id)
