@@ -32,7 +32,7 @@ class Employee(Base):
         }
 
         for i in self.vehicles:
-            data["vehicles"].relationship_to_dict(i.relationship_to_dict())
+            data["vehicles"].append(i.relationship_to_dict())
 
         return data
 
