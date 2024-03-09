@@ -13,12 +13,14 @@ Toda requisição feita para a API faz uma chamada a um `Adapter`, que faz uso d
 ## Adapter
 Um adapter é um ponto de entrada para o usuário. Ele vai interagir com diretamente com uma `Port` para realizar o que precisa ser feito de acordo com seu endpoint.
 
-Um `Adapter` é a interface em que o usuário se comunica com as regras de negócio da aplicação.
+Um `Adapter` é a interface em que o usuário se comunica com as regras de negócio da aplicação. Dentro dele vai ter todo o tratamento de dados necessário para se comunicar com a `Port` que o liga à regra de negócio do sistema.
 
 ## Port
 Uma port é um ponto de entrada para um `Service`, que é onde está toda a regra de negócio da aplicação. 
 
-Cada `Port` tem um `Adapter` específico próprio para ele e serve de interface para se chamar uma regra de negócio da aplicação.
+Cada `Port` tem um `Adapter` específico próprio para ele e serve de interface para se chamar uma regra de negócio da aplicação. 
+
+Cada `Port` faz apenas a chamada aos `Services` e passa os dados recebidos pelos `Adapters`, servindo apenas como um "garçom".
 
 ## Service
 Cada `Service` contém as regras de negócio para uma funcionalidade específica da aplicação. 
