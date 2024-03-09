@@ -15,3 +15,7 @@ def get_one_employee(id: int):
 @router.post("/add")
 def create_one_employee(employee: EmployeeRequest):
     return EmployeeAdapter().create_one_employee(employee)
+
+@router.delete("/delete/{id:int}")
+def delete_one_employee(id: int):
+    return EmployeeAdapter().delete_one_employee(id)

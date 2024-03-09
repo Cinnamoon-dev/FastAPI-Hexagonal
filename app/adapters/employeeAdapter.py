@@ -17,3 +17,6 @@ class EmployeeAdapter:
         data['email'] = data['email'].lower()
 
         return EmployeePort().create_one_employee(data)
+
+    def delete_one_employee(self, id):
+        return EmployeePort().delete_one_employee(id)

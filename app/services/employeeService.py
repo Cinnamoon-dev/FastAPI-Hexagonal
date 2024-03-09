@@ -40,3 +40,19 @@ class EmployeeService:
             db.rollback()
             return Response(json.dumps({"error": True, "message": "Database error"}), 500)
  
+    def delete_one_employee(self, id):
+        db = get_db()
+        employee = db.query(Employee).get(id)
+
+        if not employee:
+            return Response(json.dumps({"error": True, "message": "Employee not found"}), 404)
+        
+        try:
+            db.delete(employee)
+            db.flush()
+            db.commit()
+            return Response(json.dumps({"error": False, "message": "Employee deleted successfully"}))
+            
+        except:
+            db.rollback()
+            return Response(json.dumps({"error": True, "message": "Database error"}), 500)

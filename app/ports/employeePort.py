@@ -13,3 +13,6 @@ class EmployeePort:
 
     def create_one_employee(self, request):
         return EmployeeService().create_one_employee(request)
+    
+    def delete_one_employee(self, id):
+        return EmployeeService().delete_one_employee(id)
