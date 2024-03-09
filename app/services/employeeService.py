@@ -20,7 +20,7 @@ class EmployeeService:
         if not data:
             return Response(json.dumps({"error": True, "message": "Employee not found"}), 404) 
 
-        return data
+        return data.to_dict()
     
     def create_one_employee(self, request):
         db = get_db()
