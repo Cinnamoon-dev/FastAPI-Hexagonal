@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from app.adapters.vehicleAdapter import VehicleAdapter
-from app.swagger_models.vehicleModels import VehicleRequest
+from app.swagger_models.vehicleModels import VehicleEditRequest, VehicleRequest
 
 router = APIRouter(prefix="/vehicle")
 
@@ -15,6 +15,10 @@ def get_one_vehicle(id: int):
 @router.post("/add")
 def create_one_vehicle(vehicle: VehicleRequest):
     return VehicleAdapter().create_one_vehicle(vehicle)
+
+@router.put("/edit/{id:int}")
+def edit_one_vehicle(id: int, fields: VehicleEditRequest):
+    return VehicleAdapter().edit_one_vehicle(id, fields)
 
 @router.delete("/delete/{id:int}")
 def delete_one_vehicle(id: int):

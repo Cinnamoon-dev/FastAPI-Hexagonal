@@ -15,5 +15,8 @@ class VehiclePort:
     def create_one_vehicle(self, request: VehicleRequest):
         return VehicleService().create_one_vehicle(request)
 
+    def edit_one_vehicle(self, id, request):
+        return VehicleService().edit_one_vehicle(id, request)
+
     def delete_one_vehicle(self, id):
         return VehicleService().delete_one_vehicle(id)

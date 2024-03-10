@@ -2,6 +2,7 @@ import json
 from fastapi import Response
 from app.database import get_db
 from app.models.VehicleModel import Vehicle
+from app.services import instance_update
 
 class VehicleService:
     def __init__(self):
@@ -39,6 +40,22 @@ class VehicleService:
             db.rollback()
             return Response(json.dumps({"error": True, "message": "Database error"}), 500)
     
+    def edit_one_vehicle(self, id, request):
+        db = get_db()
+        vehicle = db.query(Vehicle).get(id)
+
+        if not vehicle:
+            return Response(json.dumps({"error": True, "message": "Vehicle not found"}), 404)
+
+        instance_update(vehicle, request)
+
+        try:
+            db.commit()
+            return Response(json.dumps({"error": False, "message": "Vehicle edited successfully"}))
+        except:
+            db.rollback()
+            return Response(json.dumps({"error": True, "message": "Database Error"}, 500))
+
     def delete_one_vehicle(self, id):
         db = get_db()
         vehicle = db.query(Vehicle).get(id)

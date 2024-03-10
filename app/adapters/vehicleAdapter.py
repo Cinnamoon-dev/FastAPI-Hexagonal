@@ -16,5 +16,9 @@ class VehicleAdapter:
         data = request.model_dump()
         return VehiclePort().create_one_vehicle(data)
 
+    def edit_one_vehicle(self, id, request: VehicleRequest):
+        data = request.model_dump()
+        return VehiclePort().edit_one_vehicle(id, data)
+
     def delete_one_vehicle(self, id):
         return VehiclePort().delete_one_vehicle(id)
