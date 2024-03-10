@@ -1,5 +1,5 @@
 from app.ports.employeePort import EmployeePort
-from app.swagger_models.employeeModels import EmployeeRequest
+from app.swagger_models.employeeModels import EmployeeEditRequest, EmployeeRequest
 
 
 class EmployeeAdapter:
@@ -17,6 +17,10 @@ class EmployeeAdapter:
         data['email'] = data['email'].lower()
 
         return EmployeePort().create_one_employee(data)
+
+    def edit_one_employee(self, id, request: EmployeeEditRequest):
+        data = request.model_dump()
+        return EmployeePort().edit_one_employee(id, data)
 
     def delete_one_employee(self, id):
         return EmployeePort().delete_one_employee(id)
