@@ -1,6 +1,7 @@
 import json
 from fastapi import Response
 from app.database import get_db
+from app.models.EmployeeModel import Employee
 from app.models.VehicleModel import Vehicle
 from app.services import instance_update
 
@@ -10,21 +11,24 @@ class VehicleService:
 
     def list_all_vehicles(self):
         db = get_db()
-        data = db.query(Vehicle).all()
+        vehicles = db.query(Vehicle).all()
 
-        return {"data": data}
+        return {"data": [vehicle.relationship_to_dict() for vehicle in vehicles]}
 
     def view_one_vehicle(self, id):
         db = get_db()
-        data = db.query(Vehicle).get(id)
+        vehicle = db.query(Vehicle).get(id)
 
-        if not data:
+        if not vehicle:
             return Response(json.dumps({"error": True, "message": "Vehicle not found"}), 404) 
 
-        return data.to_dict()
+        return vehicle.to_dict()
     
     def create_one_vehicle(self, request):
         db = get_db()
+
+        if not db.query(Employee).filter(Employee.id == request.get("employee_id")).first():
+            return Response(json.dumps({"error": True, "message": "Employee not found"}), 404)
 
         if db.query(Vehicle).filter(Vehicle.plate == request.get("plate")).first():
             return Response(json.dumps({"error": True, "message": "Plate already exists"}), 409)
