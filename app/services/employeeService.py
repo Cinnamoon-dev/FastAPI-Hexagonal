@@ -10,18 +10,18 @@ class EmployeeService:
 
     def list_all_employees(self):
         db = get_db()
-        data = db.query(Employee).all()
+        employees = db.query(Employee).all()
 
-        return {"data": data}
+        return {"data": [employee.relationship_to_dict() for employee in employees]}
 
     def view_one_employee(self, id):
         db = get_db()
-        data = db.query(Employee).get(id)
+        employee = db.query(Employee).get(id)
 
-        if not data:
+        if not employee:
             return Response(json.dumps({"error": True, "message": "Employee not found"}), 404) 
 
-        return data.to_dict()
+        return employee.to_dict()
     
     def create_one_employee(self, request):
         db = get_db()
