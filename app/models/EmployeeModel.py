@@ -1,8 +1,8 @@
 from app.database import Base
-from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy.orm import relationship
-
 from app.models.VehicleModel import Vehicle
+from sqlalchemy import Column, Integer, String, Float
+
 
 class Employee(Base):
     __tablename__ = "employee"
