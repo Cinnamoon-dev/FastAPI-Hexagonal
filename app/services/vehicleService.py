@@ -15,7 +15,7 @@ class VehicleService:
 
         return {"data": [vehicle.relationship_to_dict() for vehicle in vehicles]}
 
-    def view_one_vehicle(self, id):
+    def view_one_vehicle(self, id: int):
         db = get_db()
         vehicle = db.query(Vehicle).get(id)
 
@@ -44,7 +44,7 @@ class VehicleService:
             db.rollback()
             return Response(json.dumps({"error": True, "message": "Database error"}), 500)
     
-    def edit_one_vehicle(self, id, request):
+    def edit_one_vehicle(self, id: int, request):
         db = get_db()
         vehicle = db.query(Vehicle).get(id)
 
@@ -60,7 +60,7 @@ class VehicleService:
             db.rollback()
             return Response(json.dumps({"error": True, "message": "Database Error"}, 500))
 
-    def delete_one_vehicle(self, id):
+    def delete_one_vehicle(self, id: int):
         db = get_db()
         vehicle = db.query(Vehicle).get(id)
 
