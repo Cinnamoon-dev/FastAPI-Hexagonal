@@ -1,7 +1,7 @@
 import uvicorn
+from fastapi import FastAPI
 from app.database import Base, engine
 from app.controllers import employeeRouter, vehicleRouter
-from fastapi import FastAPI
 
 app = FastAPI()
 
