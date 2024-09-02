@@ -1,0 +1,41 @@
+networks:
+  net:
+
+services:
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d:ro
+    ports:
+      - "8080:80"
+    depends_on:
+      - hexagonal-api
+    networks:
+      - net
+
+  hexagonal-api:
+    container_name: hexagonal-api
+    hostname: hexagonalapi
+    build: .
+    env_file:
+      - .dev.env
+    ports:
+      - "8000:8000"
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - net
+
+  database:
+    image: postgres:12.0-alpine
+    env_file:
+      - .db.env
+    networks:
+      - net
+    healthcheck:
+      test: pg_isready -U postgres
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
